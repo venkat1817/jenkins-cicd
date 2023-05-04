@@ -1,0 +1,45 @@
+cicd-jenkins-setup
+==================
+create ec2
+sg-22 ---anywhere 
+8080---my ip(or)vpnip
+login to shh
+switch root user
+https://www.jenkins.io/doc/book/installing/linux/
+#!/bin/bash 
+yum update -y
+sudo wget -O /etc/yum.repos.d/jenkins.repo \
+    https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+sudo yum upgrade
+yum install java -y
+sudo yum install jenkins -y
+sudo systemctl enable jenkins
+sudo systemctl start jenkins
+sudo systemctl daemon-reload jenkins
+sudo yum install git -y
+
+
+
+ps -ef |grep jenkins
+find /etc -name jenkins*
+more /etc/sysconfig/jenkins
+vi /etc/sysconfig/jenkins
+JENKINS_JAVA_OPTIONS="-Xms2048m Xmx2048m -Djava.awt.headless=true"
+systemctl stop jenkins && systemctl start jenkins
+ps -ef | grep -i jenkins
+netstat -anlp | grep 8080
+
+give me ip and :8080 
+Unlock Jenkins
+cat /var/lib/jenkins/secrets/initialAdminPassword  ---give me some password -- 77ab146c5b14455b9bef1d9bf4abf0fa
+after jekins login
+yum install git -y
+check locally:- cd /var/lib/jenkins/
+ls
+cd workspace/
+ls
+cd ci-job/
+ls
+zip -r hello.zip *
+aws s3 cp wordpress.zip s3://jenkins-bucket-23/
