@@ -1,0 +1,6 @@
+aws s3 cp s3://bhargavreddy/wordpress-$number.zip .
+aws s3 cp s3://bhargavreddy/babblu.pem .
+chmod 400 babblu.pem
+scp -i babblu.pem wordpress-$number.zip ec2-user@172.31.27.128:/home/ec2-user/deploy/wordpress.zip
+ssh -i babblu.pem ec2-user@172.31.27.128 "cd /home/ec2-user/deploy/ && sh deploy.sh -y "
+rm -rf *

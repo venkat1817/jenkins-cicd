@@ -1,0 +1,6 @@
+zip -r wordpress-$BUILD_NUMBER.zip .
+aws s3 cp wordpress-$BUILD_NUMBER.zip s3://bhargavreddy
+aws s3 cp s3://bhargavreddy/babblu.pem .
+chmod 400 babblu.pem
+scp -i babblu.pem deploy.sh ec2-user@172.31.27.128:/home/ec2-user/deploy
+rm -rf *.zip
